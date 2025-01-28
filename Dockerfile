@@ -15,7 +15,7 @@ RUN curl -sS https://getcomposer.org/installer | php -- \
 
 RUN composer install
 
-RUN chmod +x /app/bin/:slug
+RUN chmod +x /app/bin/validate-semver-cli
 
 FROM php:8.2-cli
 
@@ -23,4 +23,4 @@ WORKDIR /app
 
 COPY --from=builder /app /app
 
-ENTRYPOINT ["php", "bin/:slug", "--ansi"]
+ENTRYPOINT ["php", "bin/validate-semver-cli", "--ansi"]

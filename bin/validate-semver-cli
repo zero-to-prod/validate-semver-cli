@@ -2,12 +2,12 @@
 <?php
 
 use Symfony\Component\Console\Application;
-use Zerotoprod\:namespace\:namespace;
+use Zerotoprod\ValidateSemverCli\ValidateSemverCli;
 
 require getcwd().'/vendor/autoload.php';
 
 $Application = (new Application());
 
-:namespace::register($Application);
+ValidateSemverCli::register($Application);
 
 $Application->run();

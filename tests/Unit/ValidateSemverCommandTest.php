@@ -6,18 +6,18 @@ use PHPUnit\Framework\Attributes\Test;
 use Symfony\Component\Console\Application;
 use Symfony\Component\Console\Tester\CommandTester;
 use Tests\TestCase;
-use Zerotoprod\ValidateSemverCli\SrcCommand;
+use Zerotoprod\ValidateSemverCli\ValidateSemverCommand;
 
-class SrcCommandTest extends TestCase
+class ValidateSemverCommandTest extends TestCase
 {
     #[Test] public function command(): void
     {
         $Application = new Application();
-        $Application->add(new SrcCommand());
-        $Command = $Application->find(SrcCommand::signature);
+        $Application->add(new ValidateSemverCommand());
+        $Command = $Application->find(ValidateSemverCommand::signature);
         $CommandTester = new CommandTester($Command);
 
-        $CommandTester->execute([]);
+        $CommandTester->execute([ValidateSemverCommand::semver =>'1.0.0']);
 
         $CommandTester->assertCommandIsSuccessful();
     }
