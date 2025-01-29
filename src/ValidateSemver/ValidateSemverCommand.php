@@ -1,6 +1,6 @@
 <?php
 
-namespace Zerotoprod\ValidateSemverCli;
+namespace Zerotoprod\ValidateSemverCli\ValidateSemver;
 
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
@@ -16,14 +16,13 @@ use Zerotoprod\ValidateSemVer\ValidateSemVer;
 class ValidateSemverCommand extends Command
 {
     public const signature = 'validate-semver-cli:validate';
-    public const semver = 'semver';
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        $semver = $input->getArgument(self::semver);
+        $Args = ValidateSemverArguments::from($input->getArguments());
         $output->writeln(
-            ValidateSemVer::isValid($semver)
-                ? $semver
+            ValidateSemVer::isValid($Args->semver)
+                ? $Args->semver
                 : ''
         );
 
@@ -32,6 +31,6 @@ class ValidateSemverCommand extends Command
 
     public function configure(): void
     {
-        $this->addArgument(self::semver, InputArgument::REQUIRED, 'The Semantic Version string to validate');
+        $this->addArgument(ValidateSemverArguments::semver, InputArgument::REQUIRED, 'The Semantic Version string to validate');
     }
 }
