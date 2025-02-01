@@ -8,7 +8,7 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
 #[AsCommand(
-    name: ShowRegexCommand::signature,
+    name: SrcCommand::signature,
     description: 'Project source link'
 )]
 class SrcCommand extends Command
