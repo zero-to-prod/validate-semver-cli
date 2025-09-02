@@ -45,7 +45,8 @@
     }
   },
   "bin": [
-    "bin/validate-semver-cli"
+    "bin/validate-semver-cli",
+    "bin/zero-to-prod-validate-semver-cli"
   ],
   "require-dev": {
     "phpunit/phpunit": "<12.0"
