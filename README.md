@@ -18,7 +18,13 @@
 - [Introduction](#introduction)
 - [Requirements](#requirements)
 - [Installation](#installation)
+- [Documentation Publishing](#documentation-publishing)
+  - [Automatic Documentation Publishing](#automatic-documentation-publishing)
 - [Usage](#usage)
+  - [Available Commands](#available-commands)
+    - [`validate-semver-cli:validate`](#validate-semver-clivalidate)
+    - [`validate-semver-cli:show-regex`](#validate-semver-clishow-regex)
+    - [`validate-semver-cli:src`](#validate-semver-clisrc)
 - [Docker Image](#docker-image)
 - [Local Development](./LOCAL_DEVELOPMENT.md)
 - [Image Development](./IMAGE_DEVELOPMENT.md)
@@ -40,7 +46,40 @@ Install `Zerotoprod\ValidateSemverCli` via [Composer](https://getcomposer.org/):
 composer require zero-to-prod/validate-semver-cli
 ```
 
-This will add the package to your project’s dependencies and create an autoloader entry for it.
+This will add the package to your project's dependencies and create an autoloader entry for it.
+
+## Documentation Publishing
+
+You can publish this README to your local documentation directory.
+
+This can be useful for providing documentation for AI agents.
+
+This can be done using the included script:
+
+```bash
+# Publish to default location (./docs/zero-to-prod/validate-semver-cli)
+vendor/bin/zero-to-prod-validate-semver-cli
+
+# Publish to custom directory
+vendor/bin/zero-to-prod-validate-semver-cli /path/to/your/docs
+```
+
+### Automatic Documentation Publishing
+
+You can automatically publish documentation by adding the following to your `composer.json`:
+
+```json
+{
+    "scripts": {
+        "post-install-cmd": [
+            "zero-to-prod-validate-semver-cli"
+        ],
+        "post-update-cmd": [
+            "zero-to-prod-validate-semver-cli"
+        ]
+    }
+}
+```
 
 ## Usage
 
@@ -48,6 +87,100 @@ Run this command to see the available commands:
 
 ```shell
 vendor/bin/validate-semver-cli list
+```
+
+### Available Commands
+
+The CLI provides three main commands for working with semantic version validation:
+
+#### `validate-semver-cli:validate`
+
+Validates a semantic version string and returns the string if valid, or empty output if invalid.
+
+**Usage:**
+```shell
+vendor/bin/validate-semver-cli validate-semver-cli:validate <semver>
+```
+
+**Arguments:**
+- `semver` (required) - The semantic version string to validate
+
+**Examples:**
+
+Valid semantic version:
+```shell
+vendor/bin/validate-semver-cli validate-semver-cli:validate "1.2.3"
+```
+**Output:**
+```
+1.2.3
+```
+
+Valid semantic version with pre-release:
+```shell
+vendor/bin/validate-semver-cli validate-semver-cli:validate "2.0.0-alpha.1"
+```
+**Output:**
+```
+2.0.0-alpha.1
+```
+
+Valid semantic version with build metadata:
+```shell
+vendor/bin/validate-semver-cli validate-semver-cli:validate "1.0.0+20230101"
+```
+**Output:**
+```
+1.0.0+20230101
+```
+
+Invalid semantic version:
+```shell
+vendor/bin/validate-semver-cli validate-semver-cli:validate "1.2"
+```
+**Output:**
+```
+
+```
+
+#### `validate-semver-cli:show-regex`
+
+Displays the regular expression pattern used to validate semantic version strings.
+
+**Usage:**
+```shell
+vendor/bin/validate-semver-cli validate-semver-cli:show-regex
+```
+
+**Arguments:** None
+
+**Example:**
+```shell
+vendor/bin/validate-semver-cli validate-semver-cli:show-regex
+```
+**Output:**
+```
+^(?P<major>0|[1-9]\d*)\.(?P<minor>0|[1-9]\d*)\.(?P<patch>0|[1-9]\d*)(?:-(?P<prerelease>(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\.(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\+(?P<buildmetadata>[0-9a-zA-Z-]+(?:\.[0-9a-zA-Z-]+)*))?$
+```
+
+#### `validate-semver-cli:src`
+
+Displays the project's source repository URL.
+
+**Usage:**
+```shell
+vendor/bin/validate-semver-cli validate-semver-cli:src
+```
+
+**Arguments:** None
+
+**Example:**
+```shell
+vendor/bin/validate-semver-cli validate-semver-cli:src
+```
+**Output:**
+```
+https://github.com/zero-to-prod/validate-semver-cli
 ```
 
 ## Docker Image
